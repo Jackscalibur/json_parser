@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+mod tokenize;
+
 pub enum Value {
     Null,
     Boolean(bool),
