@@ -14,7 +14,14 @@ pub enum Token {
 }
 
 pub fn tokenize(input: String) -> Vec<Token> {
-    Vec::new()
+    let chars: Vec<char> = input.chars().collect();
+    let mut index = 0;
+
+    let mut tokens = Vec::new();
+    while index < chars.len() {
+        index += 1;
+    }
+    tokens
 }
 
 #[cfg(test)]
