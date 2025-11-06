@@ -19,9 +19,26 @@ pub fn tokenize(input: String) -> Vec<Token> {
 
     let mut tokens = Vec::new();
     while index < chars.len() {
-        index += 1;
+        let token = make_token(chars[index]);
+        tokens.push(token);
     }
     tokens
+}
+
+fn make_token(ch: char) -> Token {
+    match ch {
+        '[' => Token::LeftBracket,
+        ']' => Token::RightBracket,
+        '{' => Token::LeftBrace,
+        '}' => Token::RightBrace,
+        ',' => Token::Comma,
+        ':' => Token::Colon,
+        'n' => todo!("Implement 'null' token"),
+        't' => todo!("Implement 'true' token"),
+        'f' => todo!("Implement 'false' token"),
+
+        _ => todo!("Implement other tokens"),
+    }
 }
 
 #[cfg(test)]
