@@ -13,6 +13,11 @@ pub enum Token {
     String(String),
 }
 
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub enum TokenizeError {
+    UnfinishedLiteralValue,
+}
+
 pub fn tokenize(input: String) -> Vec<Token> {
     let chars: Vec<char> = input.chars().collect();
     let mut index = 0;
@@ -25,20 +30,36 @@ pub fn tokenize(input: String) -> Vec<Token> {
     tokens
 }
 
-fn make_token(ch: char) -> Token {
-    match ch {
+fn tokenize_null(chars: &Vec<char>, index: &mut usize) -> Result<Token, TokenizeError> {
+    for expected_char in "null".chars() {
+        if expected_char != chars[*index] {
+            return Err(TokenizeError::UnfinishedLiteralValue);
+        }
+        *index += 1;
+    }
+    Ok(Token::Null)
+}
+
+fn make_token(chars: &Vec<char>, index: &mut usize) -> Result<Token, TokenizeError> {
+    let ch = chars[*index];
+
+    let token = match ch {
         '[' => Token::LeftBracket,
         ']' => Token::RightBracket,
         '{' => Token::LeftBrace,
         '}' => Token::RightBrace,
         ',' => Token::Comma,
         ':' => Token::Colon,
-        'n' => todo!("Implement 'null' token"),
+        'n' => match tokenize_null(chars, index) {
+            Ok(token) => token,
+            Err(err) => return Err(err),
+        },
         't' => todo!("Implement 'true' token"),
         'f' => todo!("Implement 'false' token"),
 
         _ => todo!("Implement other tokens"),
-    }
+    };
+    Ok(token)
 }
 
 #[cfg(test)]

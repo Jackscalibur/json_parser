@@ -1,6 +1,8 @@
-use std::collections::HashMap;
-
 mod tokenize;
+
+use std::collections::HashMap;
+use tokenize::tokenize;
+
 
 pub enum Value {
     Null,
@@ -10,4 +12,3 @@ pub enum Value {
     Array(Vec<Value>),
     Object(HashMap<String, Value>),
 }
-
