@@ -60,7 +60,3 @@ Limitations
 - Numbers use `f64` (possible precision loss for very large integers).
 - No streaming API; input is parsed in-memory.
 - No serializer (Value → JSON string).
-
-License
-
-MIT
